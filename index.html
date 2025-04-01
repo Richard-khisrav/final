@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Modern Calculator</title>
+    <style>
+        /* Basic styling for the body to center the calculator */
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background: #f4f4f4;
+            font-family: Arial, sans-serif;
+        }
+        
+        /* Styling for the calculator container */
+        .calculator {
+            background: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+        
+        /* Styling for the screen display */
+        .screen {
+            width: 100%;
+            height: 50px;
+            text-align: right;
+            font-size: 1.5em;
+            padding: 10px;
+            margin-bottom: 10px;
+            border: none;
+            background: #222;
+            color: #fff;
+            border-radius: 5px;
+        }
+        
+        /* Grid layout for calculator buttons */
+        .buttons {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 10px;
+        }
+        
+        /* General styling for all buttons */
+        button {
+            padding: 15px;
+            font-size: 1.2em;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            background: #ddd;
+            transition: background 0.2s;
+        }
+        
+        /* Operator buttons with distinct color */
+        button.operator {
+            background: #ff9500;
+            color: #fff;
+        }
+        
+        /* Equals button with green color */
+        button.equal {
+            background: #4caf50;
+            color: #fff;
+        }
+        
+        /* Clear button with red color */
+        button.clear {
+            background: #f44336;
+            color: #fff;
+        }
+        
+        /* Hover effect for buttons */
+        button:hover {
+            background: #ccc;
+        }
+    </style>
+</head>
+<body>
+    <div class="calculator">
+        <!-- Input field for displaying expressions and results -->
+        <input type="text" class="screen" id="screen" readonly>
+        
+        <!-- Calculator buttons container -->
+        <div class="buttons">
+            <button class="clear">AC</button>
+            <button class="operator">%</button>
+            <button class="operator">/</button>
+            <button class="operator">*</button>
+            <button>7</button>
+            <button>8</button>
+            <button>9</button>
+            <button class="operator">-</button>
+            <button>4</button>
+            <button>5</button>
+            <button>6</button>
+            <button class="operator">+</button>
+            <button>1</button>
+            <button>2</button>
+            <button>3</button>
+            <button class="equal">=</button>
+            <button>0</button>
+            <button>.</button>
+        </div>
+    </div>
+    
+    <script>
+        // Reference to the screen display
+        const screen = document.getElementById("screen");
+        const buttons = document.querySelectorAll("button");
+        let expression = ""; // Variable to store the input expression
+
+        // Adding event listeners to each button
+        buttons.forEach(button => {
+            button.addEventListener("click", () => {
+                if (button.classList.contains("clear")) {
+                    // Clear the expression if AC button is clicked
+                    expression = "";
+                } else if (button.classList.contains("equal")) {
+                    // Evaluate the expression when '=' is clicked
+                    try {
+                        expression = eval(expression); // Calculate result
+                    } catch {
+                        expression = "Error"; // Display error for invalid expressions
+                    }
+                } else {
+                    // Append button text to the expression
+                    expression += button.textContent;
+                }
+                // Update the screen display with the current expression
+                screen.value = expression;
+            });
+        });
+    </script>
+</body>
+</html>
